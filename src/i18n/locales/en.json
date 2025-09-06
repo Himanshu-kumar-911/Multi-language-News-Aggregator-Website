@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "brand": "NewsHub",
+    "search": "Search news...",
+    "favorites": "Favorites",
+    "about": "About",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "categories": {
+    "all": "All",
+    "general": "General",
+    "technology": "Technology", 
+    "politics": "Politics",
+    "sports": "Sports",
+    "business": "Business",
+    "entertainment": "Entertainment",
+    "health": "Health",
+    "science": "Science"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "noResults": "No articles found",
+    "tryAgain": "Try Again",
+    "readMore": "Read More",
+    "close": "Close",
+    "save": "Save",
+    "remove": "Remove",
+    "share": "Share",
+    "source": "Source",
+    "published": "Published",
+    "showingResults": "Showing {{count}} results",
+    "page": "Page {{current}} of {{total}}"
+  },
+  "home": {
+    "title": "Latest News",
+    "subtitle": "Stay updated with the latest news from around the world",
+    "filterBy": "Filter by category",
+    "sortBy": "Sort by",
+    "newest": "Newest First",
+    "oldest": "Oldest First"
+  },
+  "favorites": {
+    "title": "Your Favorites",
+    "subtitle": "Articles you've saved for later reading",
+    "empty": "No favorite articles yet",
+    "emptyDescription": "Start exploring and save interesting articles to read later.",
+    "added": "Added to favorites",
+    "removed": "Removed from favorites"
+  },
+  "about": {
+    "title": "About NewsHub",
+    "subtitle": "Your trusted source for global news",
+    "description": "NewsHub is a comprehensive news aggregator that brings you the latest stories from around the world. Our platform supports multiple languages and provides a seamless reading experience across all your devices.",
+    "features": {
+      "title": "Features",
+      "multilingual": "Multi-language Support",
+      "realtime": "Real-time Updates", 
+      "favorites": "Save Favorites",
+      "responsive": "Responsive Design",
+      "search": "Advanced Search",
+      "categories": "Category Filtering"
+    }
+  },
+  "article": {
+    "readFull": "Read Full Article",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
+    "shareArticle": "Share Article"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "itemsPerPage": "Items per page",
+    "showing": "Showing {{start}} to {{end}} of {{total}} articles"
+  },
+  "search": {
+    "placeholder": "Search articles...",
+    "results": "Search Results",
+    "noResults": "No articles match your search",
+    "clear": "Clear Search"
+  },
+  "toast": {
+    "success": "Success!",
+    "error": "Error!",
+    "warning": "Warning!",
+    "info": "Info"
+  }
+}

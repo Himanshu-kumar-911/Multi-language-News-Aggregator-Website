@@ -4,6 +4,15 @@ import { CategoryBar } from './components/CategoryBar';
 import { Home } from './pages/Home';
 import { Favorites } from './pages/Favorites';
 import { About } from './pages/About';
+import { All } from './pages/All';
+import { General } from './pages/General';
+import { Technology } from './pages/Technology';
+import { Politics } from './pages/Politics';
+import { Sports } from './pages/Sports';
+import { Business } from './pages/Business';
+import { Entertainment } from './pages/Entertainment';
+import { Health } from './pages/Health';
+import { Science } from './pages/Science';
 import { ToastContainer } from './components/Toast';
 import { AppProvider } from './context/AppContext';
 import './i18n';
@@ -32,6 +41,24 @@ function AppContent() {
         return <Favorites />;
       case 'about':
         return <About />;
+      case 'all':
+        return <All />;
+      case 'general':
+        return <General />;
+      case 'technology':
+        return <Technology />;
+      case 'politics':
+        return <Politics />;
+      case 'sports':
+        return <Sports />;
+      case 'business':
+        return <Business />;
+      case 'entertainment':
+        return <Entertainment />;
+      case 'health':
+        return <Health />;
+      case 'science':
+        return <Science />;
       case 'home':
       default:
         return <Home />;

@@ -13,6 +13,8 @@ import { Business } from './pages/Business';
 import { Entertainment } from './pages/Entertainment';
 import { Health } from './pages/Health';
 import { Science } from './pages/Science';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 import { ToastContainer } from './components/Toast';
 import { AppProvider } from './context/AppContext';
 import './i18n';
@@ -37,6 +39,10 @@ function AppContent() {
 
   const renderPage = () => {
     switch (activePage) {
+      case 'login':
+        return <Login />;
+      case 'register':
+        return <Register />;
       case 'favorites':
         return <Favorites />;
       case 'about':

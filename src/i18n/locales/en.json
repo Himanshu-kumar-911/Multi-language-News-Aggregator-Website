@@ -86,5 +86,23 @@
     "error": "Error!",
     "warning": "Warning!",
     "info": "Info"
+  },
+  "auth": {
+    "loginTitle": "Sign in to your account",
+    "registerTitle": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "login": "Login",
+    "register": "Register",
+    "loggingIn": "Signing in...",
+    "registering": "Creating account...",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "passwordsDontMatch": "Passwords do not match",
+    "loggedIn": "Logged in successfully",
+    "registered": "Registration successful"
   }
 }

@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../hooks/useTheme';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { authClient } from '../services/authClient';
 
 const AppContext = createContext();
 
@@ -32,6 +33,8 @@ const appReducer = (state, action) => {
       };
     case 'SET_FAVORITES':
       return { ...state, favorites: action.payload };
+    case 'SET_USER':
+      return { ...state, user: action.payload };
     default:
       return state;
   }
@@ -52,7 +55,8 @@ export function AppProvider({ children }) {
       itemsPerPage: parseInt(params.get('limit')) || 12,
       sortOrder: params.get('sort') || 'newest',
       isLoading: false,
-      favorites: favorites
+      favorites: favorites,
+      user: authClient.getCurrentUser()
     };
   };
 
@@ -75,6 +79,24 @@ export function AppProvider({ children }) {
   useEffect(() => {
     dispatch({ type: 'SET_FAVORITES', payload: favorites });
   }, [favorites]);
+
+  // Auth actions
+  const login = async (credentials) => {
+    const user = await authClient.login(credentials);
+    dispatch({ type: 'SET_USER', payload: user });
+    return user;
+  };
+
+  const register = async (payload) => {
+    const user = await authClient.register(payload);
+    dispatch({ type: 'SET_USER', payload: user });
+    return user;
+  };
+
+  const logout = async () => {
+    await authClient.logout();
+    dispatch({ type: 'SET_USER', payload: null });
+  };
 
   // Language switching
   const switchLanguage = (lng) => {
@@ -109,6 +131,11 @@ export function AppProvider({ children }) {
     addToFavorites,
     removeFromFavorites,
     isFavorite,
+    // Auth
+    user: state.user,
+    login,
+    register,
+    logout,
     
     // Computed values
     favoriteCount: state.favorites.length

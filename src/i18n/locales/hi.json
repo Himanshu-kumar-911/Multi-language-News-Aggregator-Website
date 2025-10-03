@@ -86,5 +86,23 @@
     "error": "त्रुटि!",
     "warning": "चेतावनी!",
     "info": "जानकारी"
+  },
+  "auth": {
+    "loginTitle": "अपने खाते में साइन इन करें",
+    "registerTitle": "अपना खाता बनाएं",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "name": "नाम",
+    "namePlaceholder": "आपका नाम",
+    "login": "लॉगिन",
+    "register": "रजिस्टर",
+    "loggingIn": "साइन इन हो रहा है...",
+    "registering": "खाता बनाया जा रहा है...",
+    "noAccount": "खाता नहीं है?",
+    "haveAccount": "पहले से खाता है?",
+    "passwordsDontMatch": "पासवर्ड मेल नहीं खाते",
+    "loggedIn": "सफलतापूर्वक लॉगिन हुआ",
+    "registered": "पंजीकरण सफल रहा"
   }
 }

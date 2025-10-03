@@ -21,7 +21,9 @@ export function Navbar() {
     toggleTheme,
     currentLanguage,
     switchLanguage,
-    favoriteCount
+    favoriteCount,
+    user,
+    logout
   } = useApp();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -165,6 +167,26 @@ export function Navbar() {
             >
               {t('nav.about')}
             </a>
+
+            {/* Auth */}
+            {user ? (
+              <>
+                <span className="text-sm text-gray-600 dark:text-gray-300">{user.name}</span>
+                <button
+                  onClick={async () => { await logout(); window.location.hash = 'home'; }}
+                  className="px-3 py-1.5 rounded-md text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                
+                <a href="#register" className="px-3 py-1.5 rounded-md text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
+                  Register
+                </a>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -194,7 +216,9 @@ export function Navbar() {
                 <input
                   type="text"
                   value={localSearchQuery}
-                  onChange={(e) => setLocalSearchQuery(e.target.value)}
+                  onChange={(e) => setLocalSearchQuery(e.target.value)
+                    
+                  }
                   placeholder={t('nav.search')}
                   className="
                     w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-600 
@@ -250,6 +274,30 @@ export function Navbar() {
               >
                 {t('nav.about')}
               </a>
+
+              {/* Auth (mobile) */}
+              {user ? (
+                <>
+                  <div className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300">
+                    {user.name}
+                  </div>
+                  <button
+                    onClick={async () => { await logout(); setIsMenuOpen(false); window.location.hash = 'home'; }}
+                    className="w-full text-left px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <a href="#login" className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    Login
+                  </a>
+                  <a href="#register" className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                    Register
+                  </a>
+                </>
+              )}
             </div>
           </div>
         )}

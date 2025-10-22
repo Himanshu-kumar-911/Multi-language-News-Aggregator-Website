@@ -171,7 +171,15 @@ export function Navbar() {
             {/* Auth */}
             {user ? (
               <>
-                <span className="text-sm text-gray-600 dark:text-gray-300">{user.name}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300">{user.firstName} {user.lastName}</span>
+                {(user.role === 'admin' || user.role === 'superadmin') && (
+                  <a 
+                    href="#admin-dashboard" 
+                    className="px-3 py-1.5 rounded-md text-sm bg-red-600 text-white hover:bg-red-700 transition-colors"
+                  >
+                    Admin
+                  </a>
+                )}
                 <button
                   onClick={async () => { await logout(); window.location.hash = 'home'; }}
                   className="px-3 py-1.5 rounded-md text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
@@ -181,9 +189,14 @@ export function Navbar() {
               </>
             ) : (
               <>
-                
+                <a href="#login" className="px-3 py-1.5 rounded-md text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                  Login
+                </a>
                 <a href="#register" className="px-3 py-1.5 rounded-md text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
                   Register
+                </a>
+                <a href="#admin-login" className="px-3 py-1.5 rounded-md text-sm bg-red-600 text-white hover:bg-red-700 transition-colors">
+                  Admin
                 </a>
               </>
             )}
@@ -279,8 +292,17 @@ export function Navbar() {
               {user ? (
                 <>
                   <div className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300">
-                    {user.name}
+                    {user.firstName} {user.lastName}
                   </div>
+                  {(user.role === 'admin' || user.role === 'superadmin') && (
+                    <a 
+                      href="#admin-dashboard" 
+                      className="flex items-center px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Admin Dashboard
+                    </a>
+                  )}
                   <button
                     onClick={async () => { await logout(); setIsMenuOpen(false); window.location.hash = 'home'; }}
                     className="w-full text-left px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
@@ -295,6 +317,9 @@ export function Navbar() {
                   </a>
                   <a href="#register" className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
                     Register
+                  </a>
+                  <a href="#admin-login" className="flex items-center px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
+                    Admin Login
                   </a>
                 </>
               )}

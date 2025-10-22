@@ -56,7 +56,7 @@ export function AppProvider({ children }) {
       sortOrder: params.get('sort') || 'newest',
       isLoading: false,
       favorites: favorites,
-      user: authClient.getCurrentUser()
+      user: null // Will be set after token verification
     };
   };
 
@@ -79,6 +79,24 @@ export function AppProvider({ children }) {
   useEffect(() => {
     dispatch({ type: 'SET_FAVORITES', payload: favorites });
   }, [favorites]);
+
+  // Verify token and set user on app load
+  useEffect(() => {
+    const verifyAndSetUser = async () => {
+      const currentUser = authClient.getCurrentUser();
+      if (currentUser) {
+        const isValid = await authClient.verifyToken();
+        if (isValid) {
+          dispatch({ type: 'SET_USER', payload: currentUser });
+        } else {
+          // Token is invalid, clear user data
+          authClient.logout();
+        }
+      }
+    };
+    
+    verifyAndSetUser();
+  }, []);
 
   // Auth actions
   const login = async (credentials) => {

@@ -15,6 +15,8 @@ import { Health } from './pages/Health';
 import { Science } from './pages/Science';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import { AdminLogin } from './pages/AdminLogin';
+import { AdminDashboard } from './pages/AdminDashboard';
 import { ToastContainer } from './components/Toast';
 import { AppProvider } from './context/AppContext';
 import './i18n';
@@ -43,6 +45,10 @@ function AppContent() {
         return <Login />;
       case 'register':
         return <Register />;
+      case 'admin-login':
+        return <AdminLogin />;
+      case 'admin-dashboard':
+        return <AdminDashboard />;
       case 'favorites':
         return <Favorites />;
       case 'about':

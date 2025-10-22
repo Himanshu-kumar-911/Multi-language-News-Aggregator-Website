@@ -6,7 +6,8 @@ import { showToast } from '../components/Toast';
 export function Register() {
   const { t } = useTranslation();
   const { register } = useApp();
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,7 +23,11 @@ export function Register() {
     }
     setIsSubmitting(true);
     try {
-      await register({ name, email, password });
+      await register({ 
+        name: `${firstName} ${lastName}`.trim(), 
+        email, 
+        password 
+      });
       showToast(t('auth.registered'), 'success');
       window.location.hash = 'home';
     } catch (err) {
@@ -40,16 +45,29 @@ export function Register() {
           {error && (
             <div className="text-sm text-red-600 dark:text-red-400">{error}</div>
           )}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('auth.name')}</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder={t('auth.namePlaceholder')}
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="John"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                placeholder="Doe"
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('auth.email')}</label>
@@ -94,10 +112,24 @@ export function Register() {
             {isSubmitting ? t('auth.registering') : t('auth.register')}
           </button>
         </form>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 text-center">
-          {t('auth.haveAccount')}{' '}
-          <a href="#login" className="text-indigo-600 dark:text-indigo-400 hover:underline">{t('auth.login')}</a>
-        </p>
+        <div className="mt-4 space-y-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+            {t('auth.haveAccount')}{' '}
+            <a href="#login" className="text-indigo-600 dark:text-indigo-400 hover:underline">{t('auth.login')}</a>
+          </p>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-600" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">Or</span>
+            </div>
+          </div>
+          <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+            Admin?{' '}
+            <a href="#admin-login" className="text-red-600 dark:text-red-400 hover:underline font-medium">Admin Login</a>
+          </p>
+        </div>
       </div>
     </div>
   );

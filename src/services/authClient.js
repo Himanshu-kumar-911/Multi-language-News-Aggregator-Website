@@ -1,20 +1,8 @@
-// Simple localStorage-based auth client for demo purposes
+// Backend API-based auth client
 
-const USERS_KEY = 'auth_users';
+const API_BASE_URL = 'http://localhost:5000/api';
 const CURRENT_USER_KEY = 'auth_current_user';
-
-function readUsers() {
-  try {
-    const raw = window.localStorage.getItem(USERS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeUsers(users) {
-  window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
-}
+const TOKEN_KEY = 'auth_token';
 
 function writeCurrentUser(user) {
   if (user) {
@@ -33,57 +21,132 @@ function readCurrentUser() {
   }
 }
 
+function writeToken(token) {
+  if (token) {
+    window.localStorage.setItem(TOKEN_KEY, token);
+  } else {
+    window.localStorage.removeItem(TOKEN_KEY);
+  }
+}
+
+function readToken() {
+  return window.localStorage.getItem(TOKEN_KEY);
+}
+
 class AuthClient {
   getCurrentUser() {
     return readCurrentUser();
   }
 
+  getToken() {
+    return readToken();
+  }
+
   async register({ name, email, password }) {
-    await new Promise(r => setTimeout(r, 400));
-    const users = readUsers();
-    const emailLower = String(email || '').trim().toLowerCase();
+    const [firstName, ...lastNameParts] = name.trim().split(' ');
+    const lastName = lastNameParts.join(' ') || '';
+    
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: email.split('@')[0], // Use email prefix as username
+        email: email.trim().toLowerCase(),
+        password,
+        firstName,
+        lastName,
+        preferredLanguage: 'en'
+      }),
+    });
 
-    if (!name || !emailLower || !password) {
-      throw new Error('All fields are required');
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Registration failed');
     }
 
-    if (users.some(u => u.email === emailLower)) {
-      throw new Error('Email already registered');
-    }
-
-    const newUser = {
-      id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
-      name: String(name).trim(),
-      email: emailLower,
-      // NOTE: Do NOT store plaintext passwords in production. This is a demo only.
-      password,
-      createdAt: new Date().toISOString()
-    };
-
-    users.push(newUser);
-    writeUsers(users);
-    writeCurrentUser({ id: newUser.id, name: newUser.name, email: newUser.email });
-    return { id: newUser.id, name: newUser.name, email: newUser.email };
+    const { user, token } = data.data;
+    writeToken(token);
+    writeCurrentUser(user);
+    return user;
   }
 
   async login({ email, password }) {
-    await new Promise(r => setTimeout(r, 300));
-    const users = readUsers();
-    const emailLower = String(email || '').trim().toLowerCase();
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        identifier: email.trim().toLowerCase(),
+        password,
+      }),
+    });
 
-    const found = users.find(u => u.email === emailLower);
-    if (!found || found.password !== password) {
-      throw new Error('Invalid email or password');
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Login failed');
     }
 
-    const user = { id: found.id, name: found.name, email: found.email };
+    const { user, token } = data.data;
+    writeToken(token);
     writeCurrentUser(user);
     return user;
   }
 
   async logout() {
-    await new Promise(r => setTimeout(r, 100));
+    const token = readToken();
+    if (token) {
+      try {
+        await fetch(`${API_BASE_URL}/auth/logout`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+      } catch (error) {
+        console.error('Logout API call failed:', error);
+      }
+    }
+    writeToken(null);
     writeCurrentUser(null);
+  }
+
+  async verifyToken() {
+    const token = readToken();
+    if (!token) return false;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/verify`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        return true;
+      } else {
+        // Token is invalid, clear it
+        writeToken(null);
+        writeCurrentUser(null);
+        return false;
+      }
+    } catch (error) {
+      console.error('Token verification failed:', error);
+      writeToken(null);
+      writeCurrentUser(null);
+      return false;
+    }
+  }
+
+  isAdmin() {
+    const user = this.getCurrentUser();
+    return user && (user.role === 'admin' || user.role === 'superadmin');
   }
 }
 

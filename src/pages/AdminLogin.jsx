@@ -5,7 +5,7 @@ import { showToast } from '../components/Toast';
 
 export function AdminLogin() {
   const { t } = useTranslation();
-  const { login } = useApp();
+  const { login, logout } = useApp();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,7 +20,9 @@ export function AdminLogin() {
       
       // Check if user is admin
       if (user.role !== 'admin' && user.role !== 'superadmin') {
-        setError('Access denied. Admin privileges required.');
+        // Not an admin: clear any logged-in state and guide to user login instead of showing wrong credentials
+        await logout();
+        setError('This account is not an admin. Please use User Login.');
         return;
       }
       
@@ -37,6 +39,15 @@ export function AdminLogin() {
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 dark:from-gray-900 dark:to-red-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-red-200 dark:border-red-800">
         <div className="text-center mb-6">
+          <div className="mb-4 text-left">
+            <button
+              type="button"
+              onClick={() => { if (window.history.length > 1) { window.history.back(); } else { window.location.hash = 'home'; } }}
+              className="inline-flex items-center text-sm text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400"
+            >
+              ← Back
+            </button>
+          </div>
           <div className="mx-auto w-12 h-12 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mb-4">
             <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -101,10 +112,7 @@ export function AdminLogin() {
             Regular user?{' '}
             <a href="#login" className="text-indigo-600 dark:text-indigo-400 hover:underline">User Login</a>
           </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-            Don't have an account?{' '}
-            <a href="#register" className="text-indigo-600 dark:text-indigo-400 hover:underline">Register</a>
-          </p>
+          
         </div>
       </div>
     </div>

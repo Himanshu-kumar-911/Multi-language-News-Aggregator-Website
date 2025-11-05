@@ -100,65 +100,56 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Favorites */}
-            <a
-              href="#favorites"
-              className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-            >
-              <HeartIcon className="h-6 w-6" />
-              {favoriteCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {favoriteCount}
-                </span>
-              )}
-            </a>
+            {user && (
+              <>
+                {/* Favorites */}
+                <a
+                  href="#favorites"
+                  className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
+                  <HeartIcon className="h-6 w-6" />
+                  {favoriteCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {favoriteCount}
+                    </span>
+                  )}
+                </a>
 
-            {/* Language Selector */}
-            <div className="relative">
-              <button
-                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center space-x-1 p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-              >
-                <GlobeAltIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">{currentLanguage.toUpperCase()}</span>
-              </button>
-              
+                {/* Language Selector */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                    className="flex items-center space-x-1 p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  >
+                    <GlobeAltIcon className="h-5 w-5" />
+                    <span className="text-sm font-medium">{currentLanguage.toUpperCase()}</span>
+                  </button>
               {isLangMenuOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-                  <button
-                    onClick={() => handleLanguageChange('en')}
-                    className={`
-                      block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700
-                      ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}
-                    `}
-                  >
-                    English
-                  </button>
-                  <button
-                    onClick={() => handleLanguageChange('hi')}
-                    className={`
-                      block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700
-                      ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}
-                    `}
-                  >
-                    हिन्दी
-                  </button>
+                <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                  <button onClick={() => handleLanguageChange('en')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>English</button>
+                  <button onClick={() => handleLanguageChange('hi')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>हिन्दी</button>
+                  <button onClick={() => handleLanguageChange('mr')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'mr' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>मराठी</button>
+                  <button onClick={() => handleLanguageChange('gu')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'gu' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>ગુજરાતી</button>
+                  <button onClick={() => handleLanguageChange('bn')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'bn' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>বাংলা</button>
+                  <button onClick={() => handleLanguageChange('ta')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'ta' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>தமிழ்</button>
                 </div>
               )}
-            </div>
+                </div>
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'light' ? (
-                <MoonIcon className="h-6 w-6" />
-              ) : (
-                <SunIcon className="h-6 w-6" />
-              )}
-            </button>
+                {/* Theme Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'light' ? (
+                    <MoonIcon className="h-6 w-6" />
+                  ) : (
+                    <SunIcon className="h-6 w-6" />
+                  )}
+                </button>
+              </>
+            )}
 
             {/* About */}
             <a
@@ -172,14 +163,6 @@ export function Navbar() {
             {user ? (
               <>
                 <span className="text-sm text-gray-600 dark:text-gray-300">{user.firstName} {user.lastName}</span>
-                {(user.role === 'admin' || user.role === 'superadmin') && (
-                  <a 
-                    href="#admin-dashboard" 
-                    className="px-3 py-1.5 rounded-md text-sm bg-red-600 text-white hover:bg-red-700 transition-colors"
-                  >
-                    Admin
-                  </a>
-                )}
                 <button
                   onClick={async () => { await logout(); window.location.hash = 'home'; }}
                   className="px-3 py-1.5 rounded-md text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
@@ -191,12 +174,6 @@ export function Navbar() {
               <>
                 <a href="#login" className="px-3 py-1.5 rounded-md text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                   Login
-                </a>
-                <a href="#register" className="px-3 py-1.5 rounded-md text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
-                  Register
-                </a>
-                <a href="#admin-login" className="px-3 py-1.5 rounded-md text-sm bg-red-600 text-white hover:bg-red-700 transition-colors">
-                  Admin
                 </a>
               </>
             )}
@@ -242,44 +219,60 @@ export function Navbar() {
                 />
               </div>
 
-              {/* Mobile Actions */}
-              <a
-                href="#favorites"
-                className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-              >
-                <HeartIcon className="h-5 w-5 mr-3" />
-                {t('nav.favorites')}
-                {favoriteCount > 0 && (
-                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                    {favoriteCount}
-                  </span>
-                )}
-              </a>
+              {/* Mobile Actions (auth-only) */}
+              {user && (
+                <>
+                  <a
+                    href="#favorites"
+                    className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  >
+                    <HeartIcon className="h-5 w-5 mr-3" />
+                    {t('nav.favorites')}
+                    {favoriteCount > 0 && (
+                      <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                        {favoriteCount}
+                      </span>
+                    )}
+                  </a>
 
-              <button
-                onClick={() => handleLanguageChange(currentLanguage === 'en' ? 'hi' : 'en')}
-                className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-              >
-                <GlobeAltIcon className="h-5 w-5 mr-3" />
-                {currentLanguage === 'en' ? 'हिन्दी' : 'English'}
-              </button>
-
-              <button
-                onClick={toggleTheme}
-                className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-              >
-                {theme === 'light' ? (
-                  <>
-                    <MoonIcon className="h-5 w-5 mr-3" />
-                    Dark Mode
-                  </>
-                ) : (
-                  <>
-                    <SunIcon className="h-5 w-5 mr-3" />
-                    Light Mode
-                  </>
+              <div className="px-2">
+                <button
+                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                  className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                >
+                  <GlobeAltIcon className="h-5 w-5 mr-3" />
+                  {currentLanguage.toUpperCase()}
+                </button>
+                {isLangMenuOpen && (
+                  <div className="mt-1 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                    <button onClick={() => {handleLanguageChange('en'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>English</button>
+                    <button onClick={() => {handleLanguageChange('hi'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>हिन्दी</button>
+                    <button onClick={() => {handleLanguageChange('mr'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'mr' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>मराठी</button>
+                    <button onClick={() => {handleLanguageChange('gu'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'gu' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>ગુજરાતી</button>
+                    <button onClick={() => {handleLanguageChange('bn'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'bn' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>বাংলা</button>
+                    <button onClick={() => {handleLanguageChange('ta'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'ta' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>தமிழ்</button>
+                  </div>
                 )}
-              </button>
+              </div>
+
+                  <button
+                    onClick={toggleTheme}
+                    className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                  >
+                    {theme === 'light' ? (
+                      <>
+                        <MoonIcon className="h-5 w-5 mr-3" />
+                        Dark Mode
+                      </>
+                    ) : (
+                      <>
+                        <SunIcon className="h-5 w-5 mr-3" />
+                        Light Mode
+                      </>
+                    )}
+                  </button>
+                </>
+              )}
 
               <a
                 href="#about"
@@ -294,15 +287,6 @@ export function Navbar() {
                   <div className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300">
                     {user.firstName} {user.lastName}
                   </div>
-                  {(user.role === 'admin' || user.role === 'superadmin') && (
-                    <a 
-                      href="#admin-dashboard" 
-                      className="flex items-center px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Admin Dashboard
-                    </a>
-                  )}
                   <button
                     onClick={async () => { await logout(); setIsMenuOpen(false); window.location.hash = 'home'; }}
                     className="w-full text-left px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
@@ -314,12 +298,6 @@ export function Navbar() {
                 <>
                   <a href="#login" className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
                     Login
-                  </a>
-                  <a href="#register" className="flex items-center px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
-                    Register
-                  </a>
-                  <a href="#admin-login" className="flex items-center px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
-                    Admin Login
                   </a>
                 </>
               )}

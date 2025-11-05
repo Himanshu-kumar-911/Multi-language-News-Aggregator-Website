@@ -114,7 +114,11 @@ export function Navbar() {
                     </span>
                   )}
                 </a>
+              </>
+            )}
 
+            {user && (
+              <>
                 {/* Language Selector */}
                 <div className="relative">
                   <button
@@ -124,16 +128,16 @@ export function Navbar() {
                     <GlobeAltIcon className="h-5 w-5" />
                     <span className="text-sm font-medium">{currentLanguage.toUpperCase()}</span>
                   </button>
-              {isLangMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-                  <button onClick={() => handleLanguageChange('en')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>English</button>
-                  <button onClick={() => handleLanguageChange('hi')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>हिन्दी</button>
-                  <button onClick={() => handleLanguageChange('mr')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'mr' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>मराठी</button>
-                  <button onClick={() => handleLanguageChange('gu')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'gu' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>ગુજરાતી</button>
-                  <button onClick={() => handleLanguageChange('bn')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'bn' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>বাংলা</button>
-                  <button onClick={() => handleLanguageChange('ta')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'ta' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>தமிழ்</button>
-                </div>
-              )}
+                  {isLangMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                      <button onClick={() => handleLanguageChange('en')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>English</button>
+                      <button onClick={() => handleLanguageChange('hi')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>हिन्दी</button>
+                      <button onClick={() => handleLanguageChange('mr')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'mr' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>मराठी</button>
+                      <button onClick={() => handleLanguageChange('gu')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'gu' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>ગુજરાતી</button>
+                      <button onClick={() => handleLanguageChange('bn')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'bn' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>বাংলা</button>
+                      <button onClick={() => handleLanguageChange('ta')} className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'ta' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>தமிழ்</button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Theme Toggle */}
@@ -219,7 +223,7 @@ export function Navbar() {
                 />
               </div>
 
-              {/* Mobile Actions (auth-only) */}
+              {/* Mobile Actions */}
               {user && (
                 <>
                   <a
@@ -234,27 +238,33 @@ export function Navbar() {
                       </span>
                     )}
                   </a>
+                </>
+              )}
 
-              <div className="px-2">
-                <button
-                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                  className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-                >
-                  <GlobeAltIcon className="h-5 w-5 mr-3" />
-                  {currentLanguage.toUpperCase()}
-                </button>
-                {isLangMenuOpen && (
-                  <div className="mt-1 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
-                    <button onClick={() => {handleLanguageChange('en'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>English</button>
-                    <button onClick={() => {handleLanguageChange('hi'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>हिन्दी</button>
-                    <button onClick={() => {handleLanguageChange('mr'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'mr' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>मराठी</button>
-                    <button onClick={() => {handleLanguageChange('gu'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'gu' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>ગુજરાતી</button>
-                    <button onClick={() => {handleLanguageChange('bn'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'bn' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>বাংলা</button>
-                    <button onClick={() => {handleLanguageChange('ta'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'ta' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>தமிழ்</button>
+              {user && (
+                <>
+                  {/* Language Selector (mobile) */}
+                  <div className="px-2">
+                    <button
+                      onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                      className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+                    >
+                      <GlobeAltIcon className="h-5 w-5 mr-3" />
+                      {currentLanguage.toUpperCase()}
+                    </button>
+                    {isLangMenuOpen && (
+                      <div className="mt-1 mb-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                        <button onClick={() => {handleLanguageChange('en'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'en' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>English</button>
+                        <button onClick={() => {handleLanguageChange('hi'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'hi' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>हिन्दी</button>
+                        <button onClick={() => {handleLanguageChange('mr'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'mr' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>मराठी</button>
+                        <button onClick={() => {handleLanguageChange('gu'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'gu' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>ગુજરાતી</button>
+                        <button onClick={() => {handleLanguageChange('bn'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'bn' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>বাংলা</button>
+                        <button onClick={() => {handleLanguageChange('ta'); setIsMenuOpen(true);} } className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${currentLanguage === 'ta' ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'}`}>தமிழ்</button>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
+                  {/* Theme Toggle (mobile) */}
                   <button
                     onClick={toggleTheme}
                     className="flex items-center w-full px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400"
